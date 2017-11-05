@@ -1,0 +1,21 @@
+info:
+  component: discovery-server
+  
+encrypt:
+  failOnError: false
+  key: abcdef
+  
+spring:
+  application:
+    name: discovery-server
+  profiles:
+    active: local
+  cloud:
+    config:
+      uri: http://localhost:8888
+      label: master #always use development branch
+      username: root
+      password: '{cipher}3fb2a2a25d3143ee052178842685af1a49a6e4d926c8bf44f8160c3609f7d1b6'
+management:
+  security:
+    enabled: false

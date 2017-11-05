@@ -1,0 +1,85 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.8.RELEASE'
+        springCloudVersion = 'Dalston.SR4'
+    }
+    ext.baseVersion = "1.0"
+    ext.snapshotVersion = true
+
+    group = "org.sonarqube"
+    version = "$baseVersion" + (snapshotVersion ? "-SNAPSHOT" : "")
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+plugins {
+    id "java"
+    id "jacoco"
+    id "groovy"
+    id "org.sonarqube" version "2.3"
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'org.springframework.boot'
+
+    plugins.withType(JavaPlugin) {
+        test {
+            ignoreFailures true
+        }
+    }
+
+    plugins.withType(JavaPlugin) {
+        test {
+            ignoreFailures false
+        }
+    }
+
+    // common jars for all service sub-projects using spring boot and cloud
+    dependencies {
+        compile('org.springframework.boot:spring-boot-starter-web')
+        compile('org.springframework.boot:spring-boot-starter-actuator')
+        compile('org.springframework.cloud:spring-cloud-starter-config')
+        compile('org.springframework.cloud:spring-cloud-starter-eureka')
+        compile('com.netflix.eureka:eureka-client')
+        testCompile('org.springframework.boot:spring-boot-starter-test')
+        testCompile('junit:junit')
+    }
+
+    // Default test task to include only unit tests
+    test {
+        useJUnit {
+            excludeCategories 'com.fsd.support.tests.SmokeTest'
+        }
+    }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url 'http://maven.springframework.org/release'
+    }
+}
+group 'com.fsd.support-services.config'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
