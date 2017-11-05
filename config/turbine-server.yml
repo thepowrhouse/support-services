@@ -1,0 +1,25 @@
+info:
+  component: Turbine
+  
+server:
+  port: 8989
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+  
+turbine:
+  appConfig: composite-service,product-service,odc-service,location-service,carton-service,transferin-service,auth-server,po-service,packingslip-service,transferout-service,shipping-composite-service
+  clusterNameExpression: "'default'"
+
+logging:
+  level:
+    ROOT: INFO
+
+---
+spring:
+  profiles: development
+logging:
+  level:
+    org.springframework.boot.context.embedded.tomcat: INFO  # Required for deploy script to be able to read port number from log file
+---
