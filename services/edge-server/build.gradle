@@ -15,10 +15,10 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
 jar {
-	baseName = 'discovery-server'
+	baseName = 'edge-server'
 }
 
-group = 'com.fsd.support-services'
+group = 'com.fsd.support-servces'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
@@ -32,7 +32,7 @@ ext {
 }
 
 dependencies {
-	compile('org.springframework.cloud:spring-cloud-starter-eureka-server')
+	compile('org.springframework.cloud:spring-cloud-starter-zuul')
 }
 
 dependencyManagement {
