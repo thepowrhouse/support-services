@@ -47,6 +47,7 @@ allprojects {
         compile('org.springframework.cloud:spring-cloud-starter-config')
         compile('org.springframework.cloud:spring-cloud-starter-eureka')
         compile('com.netflix.eureka:eureka-client')
+        compile('org.jolokia:jolokia-core')
         testCompile('org.springframework.boot:spring-boot-starter-test')
         testCompile('junit:junit')
     }
