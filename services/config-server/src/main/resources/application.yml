@@ -8,7 +8,7 @@ spring:
         server:
           git:
             uri: "https://git@${git_url}/SujitDeshpande/support-services.git"
-            searchPaths: config*,edge*,discovery*,hystrix*,turbine*
+            searchPaths: config*,edge*,discovery*,hystrix*,turbine*,zipkin*
             search-paths: config
             repos:
               inventory:

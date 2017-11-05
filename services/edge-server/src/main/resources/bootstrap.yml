@@ -1,0 +1,30 @@
+info:
+  component: edge-server
+  
+encrypt:
+  failOnError: false
+  key: abcdef
+  
+spring:
+  application:
+    name: edge-server
+  profiles:
+    active: local
+---  
+spring:
+  profiles: local
+  cloud:
+    config:
+      uri: http://localhost:8888
+      label: master #always use development branch
+      username: root
+      password: '{cipher}3fb2a2a25d3143ee052178842685af1a49a6e4d926c8bf44f8160c3609f7d1b6'
+---
+spring:
+  profiles: development
+  cloud:
+    config:
+      uri: http://localhost:8888
+      label: development #always use development branch
+      username: root
+      password: '{cipher}3fb2a2a25d3143ee052178842685af1a49a6e4d926c8bf44f8160c3609f7d1b6'
