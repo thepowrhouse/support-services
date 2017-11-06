@@ -75,8 +75,8 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
                 .withClient(environment.getProperty("clientId"))
                 .secret(environment.getProperty("clientPass"))
                 .authorizedGrantTypes("refresh_token", "password", "client_credentials")
-                .scopes("ApiScope")
-                .authorities("ROLE_ACTUATOR")
+                .scopes("FSD_SCOPE")
+                .authorities("FSD_ROLE")
                 .accessTokenValiditySeconds(Integer.parseInt(environment.getProperty("accessTokenValiditySeconds")))
                 .refreshTokenValiditySeconds(Integer.parseInt(environment.getProperty("refreshTokenValiditySeconds")));
     }

@@ -75,3 +75,6 @@ hystrix:
           strategy: THREAD
           thread:
             timeoutInMilliseconds: 20000
+
+Roles:
+  Privilege: Admin
