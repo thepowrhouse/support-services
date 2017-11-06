@@ -28,8 +28,6 @@ public class CustomTokenEnhancer implements TokenEnhancer {
         String roleId = null;
         JSONArray scope = new JSONArray();
 
-        roleId =  new JSONObject(authService.getUserRole()).get("groupId").toString();
-
         final Map<String, Object> accessTokenInfo = new HashMap<>();
         if (env.getProperty("Roles.Privilege").equals("Admin")){
             scope.add("ADMIN");
