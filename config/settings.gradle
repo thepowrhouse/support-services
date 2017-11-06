@@ -5,6 +5,7 @@ include 'discovery-server'
 include 'edge-server'
 include 'hystrix-dashboard'
 include 'turbine-server'
+include 'auth-server'
 
 rootProject.children.each {project ->
 
