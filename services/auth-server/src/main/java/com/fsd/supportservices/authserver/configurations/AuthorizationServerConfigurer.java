@@ -31,6 +31,12 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     @Autowired
     private Environment environment;
 
+    // To Enable Custom Claims
+    @Bean
+    public TokenEnhancer tokenEnhancer() {
+        return new CustomTokenEnhancer();
+    }
+
     // To Return Refresh Tokens
     @Bean
     UserDetailsService userDetails(){
@@ -56,9 +62,12 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        final TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), jwtTokenEnhancer()));
         endpoints
                 .tokenStore(tokenStore())
-                .tokenEnhancer(jwtTokenEnhancer())
+                //.tokenEnhancer(jwtTokenEnhancer())
+                .tokenEnhancer(tokenEnhancerChain)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetails());
     }
