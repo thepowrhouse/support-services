@@ -1,0 +1,77 @@
+server:
+  port: 9090
+# Uncomment this to enable SSL for Auth
+#  ssl:
+#    enabled: true
+#    key-alias: auth
+#    key-store: classpath:jwt.jks
+#    key-store-password: password
+#    key-password: password
+
+#server.contextPath: /auth
+
+logging:
+ level:
+   org.springframework.security: DEBUG
+
+---
+spring:
+  profiles: local
+clientId: ZmdsX21vYmlsZV9kZXZpY2U=
+clientPass: n9zY8vL8WsxKQSfK47ALuRUzDA3Y5hfR
+accessTokenValiditySeconds: 900
+refreshTokenValiditySeconds: 7200
+eureka.client.serviceUrl.defaultZone: http://localhost:8761/eureka/
+hazelcast:
+  group.name: dev
+  group.password: dev
+  tcpipenabled: true
+  group.members: localhost
+  maxdepth: 1000
+  idle.ttl: 7200
+---
+spring:
+  profiles: development
+clientId: ZmdsX21vYmlsZV9kZXZpY2U=
+clientPass: n9zY8vL8WsxKQSfK47ALuRUzDA3Y5hfR
+accessTokenValiditySeconds: 900
+refreshTokenValiditySeconds: 7200
+eureka.client.serviceUrl.defaultZone: http://localhost:8761/eureka/
+hazelcast:
+  group.name: dev
+  group.password: dev
+  tcpipenabled: true
+  group.members: localhost
+  maxdepth: 1000
+  idle.ttl: 7200
+---
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 1
+    instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${random.int}}}
+  client:
+    # Default values comes from org.springframework.cloud.netflix.eurek.EurekaClientConfigBean
+    registryFetchIntervalSeconds: 1
+    instanceInfoReplicationIntervalSeconds: 1
+    initialInstanceInfoReplicationIntervalSeconds: 1
+
+hystrix:
+  threadpool:
+    default:
+      # Maximum number of concurrent requests when using thread pools (Default: 10)
+      coreSize: 100
+      # Maximum LinkedBlockingQueue size - -1 for using SynchronousQueue (Default: -1)
+      maxQueueSize: -1
+      # Queue size rejection threshold (Default: 5)
+      queueSizeRejectionThreshold: 5
+  command:
+    default:
+      circuitBreaker:
+        sleepWindowInMilliseconds: 30000
+        requestVolumeThreshold: 3
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 20000

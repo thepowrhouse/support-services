@@ -16,10 +16,6 @@ import java.util.Map;
 
 public class CustomJwtAccessTokenConverter extends JwtAccessTokenConverter {
     private static final JsonParser OBJECT_MAPPER = JsonParserFactory.create();
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    private static final String STORE = "store";
     private static final String REFRESH_TOKEN = "refresh_token";
 
     @Override
@@ -28,18 +24,15 @@ public class CustomJwtAccessTokenConverter extends JwtAccessTokenConverter {
         Map<String, Object> info = new LinkedHashMap<String, Object>(accessToken.getAdditionalInformation());
         OAuth2Request request = authentication.getOAuth2Request();
         Map<String, String> requestParams;
-        //String storeId = "0";
         if (request.isRefresh()) {
             requestParams = request.getRefreshTokenRequest().getRequestParameters();
             try {
                 Map<String, Object> claims = OBJECT_MAPPER
                         .parseMap(JwtHelper.decode(requestParams.get(REFRESH_TOKEN)).getClaims());
-                //storeId = (String) claims.get(STORE);
             } catch (IllegalArgumentException e) {
             }
         } else {
             requestParams = request.getRequestParameters();
-            //storeId = requestParams.get(STORE);
         }
         String tokenId = result.getValue();
         if (!info.containsKey(TOKEN_ID)) {
@@ -67,7 +60,6 @@ public class CustomJwtAccessTokenConverter extends JwtAccessTokenConverter {
             Map<String, Object> refreshTokenInfo = new LinkedHashMap<String, Object>();
             refreshTokenInfo.put(TOKEN_ID, encodedRefreshToken.getValue());
             refreshTokenInfo.put(ACCESS_TOKEN_ID, tokenId);
-            //refreshTokenInfo.put(STORE, storeId);
             encodedRefreshToken.setAdditionalInformation(refreshTokenInfo);
             DefaultOAuth2RefreshToken token = new DefaultOAuth2RefreshToken(
                     encode(encodedRefreshToken, authentication));
