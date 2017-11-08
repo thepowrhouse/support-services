@@ -1,4 +1,4 @@
-# support-services
+# Support Services
 
 This Gradle Project is based on Spring Boot and Netfilx OSS. It contains the following components
 
