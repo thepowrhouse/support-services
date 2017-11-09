@@ -5,30 +5,53 @@ services:
     image: fsdapps/config-server:0.0.1-SNAPSHOT
     ports:
     - 8888
+    environment:
+    - SPRING_PROFILES_ACTIVE=docker
   discovery:
     image: fsdapps/discovery-server:0.0.1-SNAPSHOT
     ports:
-    - 8761:8761
+    - 8761
     links:
+    - config
+    environment:
+    - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
     - config
   edge:
     image: fsdapps/edge-server:0.0.1-SNAPSHOT
     ports:
-    - 8080
+    - 8765
     links:
+    - config
+    - discovery
+    environment:
+    - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
     - config
     - discovery
   histrix:
     image: fsdapps/hystrix-dashboard:0.0.1-SNAPSHOT
     ports:
-    - 8080
+    - 7979
     links:
     - config
     - discovery
+    environment:
+    - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+    - config
+    - discovery
+    - edge
   turbine:
     image: fsdapps/turbine-server:0.0.1-SNAPSHOT
     ports:
-    - 8080
+    - 8989
     links:
     - config
     - discovery
+    environment:
+    - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+    - config
+    - discovery
+    - edge
