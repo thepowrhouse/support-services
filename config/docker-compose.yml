@@ -55,3 +55,16 @@ services:
     - config
     - discovery
     - edge
+  auth:
+    image: fsdapps/auth-server:0.0.1-SNAPSHOT
+    ports:
+    - 9090
+    links:
+    - config
+    - discovery
+    environment:
+    - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+    - config
+    - discovery
+    - edge
