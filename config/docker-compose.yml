@@ -4,7 +4,7 @@ services:
   config:
     image: fsdapps/config-server:0.0.1-SNAPSHOT
     ports:
-    - 8888
+    - 8888:8888
   discovery:
     image: fsdapps/discovery-server:0.0.1-SNAPSHOT
     ports:
@@ -14,21 +14,28 @@ services:
   edge:
     image: fsdapps/edge-server:0.0.1-SNAPSHOT
     ports:
-    - 8080
+    - 8765:8765
     links:
     - config
     - discovery
   histrix:
     image: fsdapps/hystrix-dashboard:0.0.1-SNAPSHOT
     ports:
-    - 8080
+    - 7979:7979
     links:
     - config
     - discovery
   turbine:
     image: fsdapps/turbine-server:0.0.1-SNAPSHOT
     ports:
-    - 8080
+    - 8989:8989
+    links:
+    - config
+    - discovery
+  auth:
+    image: fsdapps/auth-server:0.0.1-SNAPSHOT
+    ports:
+    - 9090:9090
     links:
     - config
     - discovery
