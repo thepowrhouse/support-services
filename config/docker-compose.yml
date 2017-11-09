@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  config:
+    image: fsdapps/config-server:0.0.1-SNAPSHOT
+    ports:
+    - 8888
+  discovery:
+    image: fsdapps/discovery-server:0.0.1-SNAPSHOT
+    ports:
+    - 8761:8761
+    links:
+    - config
+  edge:
+    image: fsdapps/edge-server:0.0.1-SNAPSHOT
+    ports:
+    - 8080
+    links:
+    - config
+    - discovery
+  histrix:
+    image: fsdapps/hystrix-dashboard:0.0.1-SNAPSHOT
+    ports:
+    - 8080
+    links:
+    - config
+    - discovery
+  turbine:
+    image: fsdapps/turbine-server:0.0.1-SNAPSHOT
+    ports:
+    - 8080
+    links:
+    - config
+    - discovery
