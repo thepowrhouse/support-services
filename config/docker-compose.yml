@@ -15,9 +15,6 @@ services:
       retries: 10
   discovery:
     image: fsdapps/discovery-server:0.0.1-SNAPSHOT
-    volumes:
-    - ./wait-for-it.sh:/wait-for-it.sh
-    command: sh -c './wait-for-it.sh http://config:8888/health'
     ports:
     - 8761
     environment:
@@ -32,9 +29,6 @@ services:
     - config
   edge:
     image: fsdapps/edge-server:0.0.1-SNAPSHOT
-    volumes:
-    - ./wait-for-it.sh:/wait-for-it.sh
-    command: sh -c './wait-for-it.sh http://discovery:8761/health'
     ports:
     - 8765
     environment:
@@ -50,9 +44,6 @@ services:
     - discovery
   hystrix:
     image: fsdapps/hystrix-dashboard:0.0.1-SNAPSHOT
-    volumes:
-    - ./wait-for-it.sh:/wait-for-it.sh
-    command: sh -c './wait-for-it.sh http://edge:8765/health'
     ports:
     - 7979
     environment:
@@ -69,9 +60,6 @@ services:
     - edge
   turbine:
     image: fsdapps/turbine-server:0.0.1-SNAPSHOT
-    volumes:
-    - ./wait-for-it.sh:/wait-for-it.sh
-    command: sh -c './wait-for-it.sh http://edge:8765/health'
     ports:
     - 8989
     environment:
@@ -88,9 +76,6 @@ services:
     - edge
   auth:
     image: fsdapps/auth-server:0.0.1-SNAPSHOT
-    volumes:
-    - ./wait-for-it.sh:/wait-for-it.sh
-    command: sh -c './wait-for-it.sh http://edge:8765/health'
     ports:
     - 9090
     healthcheck:
