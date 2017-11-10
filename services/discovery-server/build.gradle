@@ -1,20 +1,17 @@
 buildscript {
 	ext {
 		springBootVersion = '1.5.8.RELEASE'
-		gradleDockerVersion = '1.2'
 	}
 	repositories {
 		mavenCentral()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath "se.transmode.gradle:gradle-docker:${gradleDockerVersion}"
 	}
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'docker'
 apply plugin: 'org.springframework.boot'
 
 jar {
@@ -28,21 +25,6 @@ sourceCompatibility = 1.8
 repositories {
 	mavenCentral()
 }
-
-task buildDocker(type: Docker) {
-	baseImage = 'openjdk:8-jdk-alpine'
-	push = project.hasProperty('push')
-	tag = 'fsdapps/discovery-server'
-	addFile {
-		from jar
-		rename {'app.jar'}
-	}
-	//TODO Read profile from environment variable
-	entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/app.jar'])
-	// exposePort(8080)
-}
-
-buildDocker.dependsOn(build)
 
 ext {
 	springCloudVersion = 'Dalston.SR4'

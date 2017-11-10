@@ -8,6 +8,11 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
   discovery:
     image: fsdapps/discovery-server:0.0.1-SNAPSHOT
     ports:
@@ -15,8 +20,11 @@ services:
     environment:
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
       - SPRING_PROFILES_ACTIVE=docker
-    links:
-    - config
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     depends_on:
     - config
   edge:
@@ -26,22 +34,26 @@ services:
     environment:
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
       - SPRING_PROFILES_ACTIVE=docker
-    links:
-    - config
-    - discovery
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8765/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     depends_on:
     - config
     - discovery
-  histrix:
+  hystrix:
     image: fsdapps/hystrix-dashboard:0.0.1-SNAPSHOT
     ports:
     - 7979
     environment:
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
       - SPRING_PROFILES_ACTIVE=docker
-    links:
-    - config
-    - discovery
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7979/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     depends_on:
     - config
     - discovery
@@ -53,9 +65,11 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
-    links:
-    - config
-    - discovery
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8989/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     depends_on:
     - config
     - discovery
@@ -64,9 +78,11 @@ services:
     image: fsdapps/auth-server:0.0.1-SNAPSHOT
     ports:
     - 9090
-    links:
-    - config
-    - discovery
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9090/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     environment:
     - SPRING_PROFILES_ACTIVE=docker
     - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
