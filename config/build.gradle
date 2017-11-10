@@ -2,6 +2,7 @@ buildscript {
     ext {
         springBootVersion = '1.5.8.RELEASE'
         springCloudVersion = 'Dalston.SR4'
+        gradleDockerVersion = '1.2'
     }
     ext.baseVersion = "1.0"
     ext.snapshotVersion = true
@@ -13,6 +14,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "se.transmode.gradle:gradle-docker:${gradleDockerVersion}"
     }
 }
 plugins {
@@ -26,6 +28,7 @@ allprojects {
     apply plugin: 'java'
     apply plugin: 'eclipse'
     apply plugin: 'idea'
+    apply plugin: 'docker'
     apply plugin: 'org.springframework.boot'
 
     plugins.withType(JavaPlugin) {
@@ -58,6 +61,24 @@ allprojects {
             excludeCategories 'com.fsd.support.tests.SmokeTest'
         }
     }
+
+    task buildDocker(type: Docker) {
+        baseImage = 'openjdk:8-jdk-alpine'
+        push = project.hasProperty('push')
+        tag = "fsdapps/" + jar.baseName
+        addFile {
+            from jar
+            rename {'app.jar'}
+        }
+        runCommand 'apk update ' +
+                '&& apk upgrade ' +
+                '&& apk add --no-cache curl '
+
+        entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/app.jar'])
+        // exposePort(8080)
+    }
+
+    buildDocker.dependsOn(build)
 }
 
 sourceCompatibility = 1.8
@@ -84,3 +105,4 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
