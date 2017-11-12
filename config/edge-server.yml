@@ -67,7 +67,6 @@ zuul:
   #ignoredServices: "*"
   prefix: /api/v1
   routes:
-    inventory-composite-service: /inventory-search/**
-    carton-service:
-      path: /carton-receiving/**
+    auth-server:
+      path: /auth-server/**
       sensitiveHeaders:
