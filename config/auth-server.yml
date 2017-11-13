@@ -31,6 +31,20 @@ hazelcast:
   idle.ttl: 7200
 ---
 spring:
+  profiles: docker
+clientId: ZmdsX21vYmlsZV9kZXZpY2U=
+clientPass: n9zY8vL8WsxKQSfK47ALuRUzDA3Y5hfR
+accessTokenValiditySeconds: 900
+refreshTokenValiditySeconds: 7200
+hazelcast:
+  group.name: dev
+  group.password: dev
+  tcpipenabled: true
+  group.members: localhost
+  maxdepth: 1000
+  idle.ttl: 7200
+---
+spring:
   profiles: development
 clientId: ZmdsX21vYmlsZV9kZXZpY2U=
 clientPass: n9zY8vL8WsxKQSfK47ALuRUzDA3Y5hfR
