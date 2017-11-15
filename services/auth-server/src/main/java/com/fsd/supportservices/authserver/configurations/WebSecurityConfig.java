@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
                 .and()
                 .authorizeRequests()
-                .antMatchers("/health", "/info", "/actuator**").permitAll()
+                .antMatchers("/info", "/actuator**").permitAll()
                 .antMatchers("/v2/api-docs", "/hystrix.stream", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**", "/swagger-resources/configuration/ui", "/swagger-resources/configuration/security").permitAll()
                 .antMatchers("/**").authenticated()
                 .and()
