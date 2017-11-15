@@ -30,7 +30,7 @@ services:
   edge:
     image: fsdapps/edge-server:0.0.1-SNAPSHOT
     ports:
-    - 8765
+    - 8765:8765
     environment:
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
       - SPRING_PROFILES_ACTIVE=docker
