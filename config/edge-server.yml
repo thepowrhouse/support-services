@@ -65,9 +65,9 @@ endpoints:
 
 zuul:
   #ignoredServices: "*"
-  prefix: /api/v1/auth-server
+  prefix: /api/v1
   routes:
     auth-server:
-      path: /**
+      path: /auth-server/**
       sensitiveHeaders:
       strip-prefix: false
