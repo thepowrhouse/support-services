@@ -40,21 +40,6 @@ ribbon:
   ConnectTimeout: 100
   ReadTimeout: 70000
 
----
-spring:
-  profiles: local
-  
-eureka.client.serviceUrl.defaultZone: http://localhost:8761/eureka/
----
-spring:
-  profiles: development
-logging:
-  level:
-    org.springframework.boot.context.embedded.tomcat: INFO  # Required for deploy script to be able to read port number from log file
-
-eureka.client.serviceUrl.defaultZone: http://localhost:8761/eureka/
-
-
 endpoints:
   restart:
     enabled: true
@@ -71,3 +56,17 @@ zuul:
       path: /auth-server/**
       sensitiveHeaders:
       strip-prefix: false
+
+---
+spring:
+  profiles: local
+  
+eureka.client.serviceUrl.defaultZone: http://localhost:8761/eureka/
+---
+spring:
+  profiles: development
+logging:
+  level:
+    org.springframework.boot.context.embedded.tomcat: INFO  # Required for deploy script to be able to read port number from log file
+
+eureka.client.serviceUrl.defaultZone: http://localhost:8761/eureka/
