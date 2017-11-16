@@ -55,8 +55,6 @@ zuul:
     auth-server:
       path: /auth-server/**
       sensitiveHeaders:
-      strip-prefix: false
-
 ---
 spring:
   profiles: local
