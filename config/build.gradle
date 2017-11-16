@@ -71,6 +71,10 @@ allprojects {
             rename {'app.jar'}
         }
 
+        runCommand 'apk update ' +
+                '&& apk upgrade ' +
+                '&& apk add --no-cache curl '
+
         entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/app.jar'])
         // exposePort(8080)
     }

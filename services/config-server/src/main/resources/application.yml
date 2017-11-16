@@ -7,7 +7,7 @@ spring:
       config:
         server:
           git:
-            uri: "ssh://git@${git_url}/thepowrhouse/support-services.git"
+            uri: "https://git@${git_url}/thepowrhouse/support-services.git"
             searchPaths: config*,edge*,discovery*,hystrix*,turbine*,zipkin*
             search-paths: config
             repos:
