@@ -1,47 +1,56 @@
 server:
   port: 8080
+
+logging:
+ level:
+   org.springframework.security: DEBUG
+
 spring:
-  profiles.active: local
   application:
     name: library-service
 ---
 spring:
   profiles: local
-
-logging:
-  level:
-    com.fsd.core.services: DEBUG
-   # org.hibernate.SQL: DEBUG
-   # org.hibernate: DEBUG
-
-
-  file: logs/library-service.log
-
 eureka.client.serviceUrl.defaultZone: http://localhost:8761/eureka/
-
-
-#Enable the Below for Auth
-#security:
- #oauth2:
-   #resource:
-     #jwt:
-       #keyUri: http://localhost:9090/oauth/token_key
-
 ---
 spring:
   profiles: docker
-logging:
-  level:
-    com.fsd.core.services: DEBUG
-  file: logs/library-service.log
-#security:
- #oauth2:
-   #resource:
-     #jwt:
-       #keyUri: http://localhost:9090/oauth/token_key
-spring:
   jpa.hibernate.ddl-auto: create
   datasource:
     url: jdbc:mysql://mysql:3306/fsd
     username: fsd
     password: fsd
+---
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 1
+    instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${random.int}}}
+  client:
+    # Default values comes from org.springframework.cloud.netflix.eurek.EurekaClientConfigBean
+    registryFetchIntervalSeconds: 1
+    instanceInfoReplicationIntervalSeconds: 1
+    initialInstanceInfoReplicationIntervalSeconds: 1
+
+hystrix:
+  threadpool:
+    default:
+      # Maximum number of concurrent requests when using thread pools (Default: 10)
+      coreSize: 100
+      # Maximum LinkedBlockingQueue size - -1 for using SynchronousQueue (Default: -1)
+      maxQueueSize: -1
+      # Queue size rejection threshold (Default: 5)
+      queueSizeRejectionThreshold: 5
+  command:
+    default:
+      circuitBreaker:
+        sleepWindowInMilliseconds: 30000
+        requestVolumeThreshold: 3
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 20000
+
+Roles:
+  Privilege: Admin
