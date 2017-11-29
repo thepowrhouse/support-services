@@ -1,0 +1,47 @@
+server:
+  port: 8080
+spring:
+  profiles.active: local
+  application:
+    name: library-service
+---
+spring:
+  profiles: local
+
+logging:
+  level:
+    com.fsd.core.services: DEBUG
+   # org.hibernate.SQL: DEBUG
+   # org.hibernate: DEBUG
+
+
+  file: logs/library-service.log
+
+eureka.client.serviceUrl.defaultZone: http://localhost:8761/eureka/
+
+
+#Enable the Below for Auth
+#security:
+ #oauth2:
+   #resource:
+     #jwt:
+       #keyUri: http://localhost:9090/oauth/token_key
+
+---
+spring:
+  profiles: docker
+logging:
+  level:
+    com.fsd.core.services: DEBUG
+  file: logs/library-service.log
+#security:
+ #oauth2:
+   #resource:
+     #jwt:
+       #keyUri: http://localhost:9090/oauth/token_key
+spring:
+  jpa.hibernate.ddl-auto: create
+  datasource:
+    url: jdbc:mysql://mysql:3306/fsd
+    username: fsd
+    password: fsd
