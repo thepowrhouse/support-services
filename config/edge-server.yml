@@ -55,6 +55,9 @@ zuul:
     auth-server:
       path: /auth-server/**
       sensitiveHeaders:
+    library-service:
+      path: /library/**
+      sensitiveHeaders:
 ---
 spring:
   profiles: local
