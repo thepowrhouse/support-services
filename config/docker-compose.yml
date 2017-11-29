@@ -13,6 +13,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+    networks:
+    - fsd
   discovery:
     image: fsdapps/discovery-server:0.0.1-SNAPSHOT
     ports:
@@ -25,6 +27,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+    networks:
+    - fsd
     depends_on:
     - config
   edge:
@@ -39,6 +43,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+    networks:
+    - fsd
     depends_on:
     - config
     - discovery
@@ -54,6 +60,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+    networks:
+    - fsd
     depends_on:
     - config
     - discovery
@@ -70,6 +78,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+    networks:
+    - fsd
     depends_on:
     - config
     - discovery
@@ -86,6 +96,8 @@ services:
     environment:
     - SPRING_PROFILES_ACTIVE=docker
     - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    networks:
+    - fsd
     depends_on:
     - config
     - discovery
@@ -95,6 +107,8 @@ services:
     container_name: "zk"
     ports:
       - "2181:2181"
+    networks:
+    - fsd
   kafka:
     image: wurstmeister/kafka
     container_name: "kafka"
@@ -109,11 +123,15 @@ services:
     - zookeeper:zk
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+    - fsd
   mongodb:
     image: mongo:3.0.4
     ports:
       - "27017:27017"
     command: mongod --smallfiles
+    networks:
+    - fsd
   mysql:
     image: mysql
     container_name: mysql-db
@@ -127,6 +145,8 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     restart: always
+    networks:
+    - fsd
     depends_on:
     - config
     - discovery
@@ -134,3 +154,7 @@ services:
 
 volumes:
   mysql_data:
+
+networks:
+  fsd:
+    driver: bridge
