@@ -4,17 +4,17 @@ git_url: github.com
 
 spring:
   cloud:
-      config:
-        server:
-          git:
-            uri: "https://git@${git_url}/thepowrhouse/support-services.git"
-            searchPaths: config*,edge*,discovery*,hystrix*,turbine*,zipkin*
-            search-paths: config
-            repos:
-              inventory:
-                pattern: product*,location*,odc*,inventory-composite*
-                uri: "ssh://git@${git_url}/thepowrhouse/inventory-services.git"
-                search-paths: config
+    config:
+      server:
+        git:
+          uri: "https://git@${git_url}/thepowrhouse/support-services.git"
+          searchPaths: config*,edge*,discovery*,hystrix*,turbine*,zipkin*
+          search-paths: config
+          repos:
+            core:
+              pattern: library*
+              uri: "https://git@${git_url}/thepowrhouse/core-services.git"
+              search-paths: config
 
 logging:
   pattern:
