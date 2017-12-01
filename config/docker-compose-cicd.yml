@@ -1,0 +1,90 @@
+version: '3'
+
+networks:
+  fsd:
+    driver: bridge
+
+volumes:
+  nexus-data:
+  jenkins-data:
+
+services:
+  nexus:
+    image: clearent/nexus
+    restart: always
+    ports:
+      - "18081:8081"
+    networks:
+      - fsd
+    #volumes:
+      #- nexus-data:/nexus-data
+  jenkins:
+    image: jenkins/jenkins:lts
+    restart: always
+    ports:
+      - "18080:8080"
+    networks:
+      - fsd
+    #volumes:
+      #- /var/run/docker.sock:/var/run/docker.sock
+      #- /usr/bin/docker:/usr/bin/docker
+      #- jenkins-data:/var/lib/jenkins/
+    depends_on:
+      - nexus
+    environment:
+      - NEXUS_PORT=8081
+
+  redis:
+    image: sameersbn/redis:latest
+    networks:
+      - fsd
+    #volumes:
+      #- /opt/data/gitlab/redis:/var/lib/redis
+
+  postgresql:
+    image: sameersbn/postgresql:9.6-2
+    environment:
+      - DEBUG=true
+      - DB_USER=gitlab
+      - DB_PASS=password
+      - DB_NAME=gitlabhq_production
+      - DB_EXTENSION=pg_trgm
+      - PG_TRUST_LOCALNET=true
+    networks:
+      - fsd
+    ports:
+      - "15432:5432"
+    #volumes:
+      #- /srv/docker/gitlab/postgresql:/var/lib/postgresql
+  gitlab:
+    image: sameersbn/gitlab:latest
+    depends_on:
+      - redis
+      - postgresql
+    networks:
+      - fsd
+    ports:
+      - "8082:80"
+      - "8022:22"
+    environment:
+      - DEBUG=true
+      - TZ=Europe/Berlin
+      - GITLAB_TIMEZONE=Berlin
+      - GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alphanumeric-string
+      - GITLAB_SECRETS_SECRET_KEY_BASE=long-and-random-alphanumeric-string
+      - GITLAB_SECRETS_OTP_KEY_BASE=long-and-random-alpha-numeric-string
+      - GITLAB_HOST=localhost
+      - GITLAB_PORT=8082
+      - GITLAB_SSH_PORT=8022
+
+      - DB_ADAPTER=postgresql
+      - DB_HOST=postgresql
+      - DB_PORT=5432
+      - DB_USER=gitlab
+      - DB_PASS=password
+      - DB_NAME=gitlabhq_production
+
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    #volumes:
+      #- /srv/docker/gitlab/gitlab:/home/git/data
