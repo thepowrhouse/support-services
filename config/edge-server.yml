@@ -20,7 +20,6 @@ hystrix:
         requestVolumeThreshold: 3
       execution:
         isolation:
-#          strategy: SEMAPHORE, no thread pool but timeout handling stops to work
           strategy: THREAD
           thread:
             timeoutInMilliseconds: 60000
@@ -29,7 +28,11 @@ eureka:
   instance:
     leaseRenewalIntervalInSeconds: 3
     metadataMap:
-      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${random.value}}}
+      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+    hostname: ${vcap.application.uris[0]}
+    home-page-url: https://${eureka.instance.hostName}
+    status-page-url: https://${eureka.instance.hostname}${management.context-path}/info
+    health-check-url: https://${eureka.instance.hostname}${management.context-path}/health
   client:
     # Default values comes from org.springframework.cloud.netflix.eurek.EurekaClientConfigBean
     registryFetchIntervalSeconds: 5
