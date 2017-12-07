@@ -28,11 +28,7 @@ eureka:
   instance:
     leaseRenewalIntervalInSeconds: 3
     metadataMap:
-      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
-    hostname: ${vcap.application.uris[0]}
-    home-page-url: http://${eureka.instance.hostName}
-    status-page-url: http://${eureka.instance.hostname}/info
-    health-check-url: http://${eureka.instance.hostname}/health
+      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${random.value}}}
   client:
     # Default values comes from org.springframework.cloud.netflix.eurek.EurekaClientConfigBean
     registryFetchIntervalSeconds: 5
