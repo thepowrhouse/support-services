@@ -4,7 +4,7 @@ services:
   config:
     image: fsdapps/config-server:0.0.1-SNAPSHOT
     ports:
-    - 8888
+    - 8888:8888
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
@@ -18,7 +18,7 @@ services:
   discovery:
     image: fsdapps/discovery-server:0.0.1-SNAPSHOT
     ports:
-    - 8761
+    - 8761:8761
     environment:
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
       - SPRING_PROFILES_ACTIVE=docker
@@ -51,7 +51,7 @@ services:
   hystrix:
     image: fsdapps/hystrix-dashboard:0.0.1-SNAPSHOT
     ports:
-    - 7979
+    - 7979:7979
     environment:
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
       - SPRING_PROFILES_ACTIVE=docker
@@ -69,7 +69,7 @@ services:
   turbine:
     image: fsdapps/turbine-server:0.0.1-SNAPSHOT
     ports:
-    - 8989
+    - 8989:8989
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
@@ -87,7 +87,7 @@ services:
   auth:
     image: fsdapps/auth-server:0.0.1-SNAPSHOT
     ports:
-    - 9090
+    - 9090:9090
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9090/health"]
       interval: 10s

@@ -1,7 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.5.8.RELEASE'
-        springCloudVersion = 'Dalston.SR4'
+        springBootVersion = '1.5.9.RELEASE'
         gradleDockerVersion = '1.2'
     }
     ext.baseVersion = "1.0"
@@ -15,6 +14,10 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath "se.transmode.gradle:gradle-docker:${gradleDockerVersion}"
+    }
+    // this allows the spring dependency management plugin
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE"
     }
 }
 plugins {
@@ -30,6 +33,15 @@ allprojects {
     apply plugin: 'idea'
     apply plugin: 'docker'
     apply plugin: 'org.springframework.boot'
+    apply plugin: "io.spring.dependency-management"
+
+    // this uses the spring dependency plugin to pull a Maven BOM - containing a curated set of dependencies
+    // see https://projects.spring.io/spring-cloud/ - Release train contents: Edgware.RELEASE
+    dependencyManagement {
+        imports {
+            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Edgware.RELEASE'
+        }
+    }
 
     plugins.withType(JavaPlugin) {
         test {
@@ -47,9 +59,7 @@ allprojects {
     dependencies {
         compile('org.springframework.boot:spring-boot-starter-web')
         compile('org.springframework.boot:spring-boot-starter-actuator')
-        compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config', version: '1.3.3.RELEASE'
-        compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-eureka', version: '1.3.5.RELEASE'
-        compile('com.netflix.eureka:eureka-client')
+        compile('org.springframework.cloud:spring-cloud-starter-config')
         compile('org.jolokia:jolokia-core')
         testCompile('org.springframework.boot:spring-boot-starter-test')
         testCompile('junit:junit')
@@ -88,20 +98,9 @@ targetCompatibility = 1.8
 repositories {
     mavenLocal()
     mavenCentral()
-    maven {
-        url 'http://maven.springframework.org/release'
-    }
 }
 group 'com.fsd.support-services.config'
 version '1.0-SNAPSHOT'
-
-apply plugin: 'java'
-
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-}
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
