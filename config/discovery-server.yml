@@ -22,6 +22,10 @@ eureka:
     ip-address: ${external.ip:${spring.cloud.client.ipAddress:localhost}}
     metadataMap:
       instanceId: ${spring.application.instance_id:${random.value}}
+    hostname: ${vcap.application.uris[0]}
+    home-page-url: http://${eureka.instance.hostName}
+    status-page-url: http://${eureka.instance.hostname}/info
+    health-check-url: http://${eureka.instance.hostname}/health
   server:
     # Disable self-preservation during development, see https://github.com/Netflix/eureka/wiki/Understanding-Eureka-Peer-to-Peer-Communication
     enableSelfPreservation: false
