@@ -3,6 +3,7 @@ version: '3'
 services:
   config:
     image: fsdapps/config-server:0.0.1-SNAPSHOT
+    container_name: config-server
     ports:
     - 8888:8888
     environment:
@@ -17,6 +18,7 @@ services:
     - fsd
   discovery:
     image: fsdapps/discovery-server:0.0.1-SNAPSHOT
+    container_name: discovery-server
     ports:
     - 8761:8761
     environment:
@@ -33,6 +35,7 @@ services:
     - config
   edge:
     image: fsdapps/edge-server:0.0.1-SNAPSHOT
+    container_name: edge-server
     ports:
     - 8765:8765
     environment:
@@ -50,6 +53,7 @@ services:
     - discovery
   hystrix:
     image: fsdapps/hystrix-dashboard:0.0.1-SNAPSHOT
+    container_name: hystrix-server
     ports:
     - 7979:7979
     environment:
@@ -68,6 +72,7 @@ services:
     - edge
   turbine:
     image: fsdapps/turbine-server:0.0.1-SNAPSHOT
+    container_name: turbine-server
     ports:
     - 8989:8989
     environment:
@@ -86,6 +91,7 @@ services:
     - edge
   auth:
     image: fsdapps/auth-server:0.0.1-SNAPSHOT
+    container_name: auth-server
     ports:
     - 9090:9090
     healthcheck:
@@ -127,6 +133,7 @@ services:
     - fsd
   mongodb:
     image: mongo:3.0.4
+    container_name: mongo-db
     ports:
       - "27017:27017"
     command: mongod --smallfiles
