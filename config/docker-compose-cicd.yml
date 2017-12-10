@@ -19,7 +19,7 @@ services:
     #volumes:
       #- nexus-data:/nexus-data
   jenkins:
-    image: jenkins/jenkins:lts
+    image: jenkins/blueocean
     restart: always
     ports:
       - "18080:8080"
