@@ -20,6 +20,11 @@ spring:
 ---
 spring:
   profiles: local
+  jpa.hibernate.ddl-auto: none
+  datasource:
+    url: jdbc:mysql://localhost:3306/fsd?createDatabaseIfNotExist=true
+    username: fsd
+    password: fsd
 clientId: ZmdsX21vYmlsZV9kZXZpY2U=
 clientPass: n9zY8vL8WsxKQSfK47ALuRUzDA3Y5hfR
 accessTokenValiditySeconds: 900
@@ -35,6 +40,11 @@ hazelcast:
 ---
 spring:
   profiles: docker
+  jpa.hibernate.ddl-auto: none
+  datasource:
+    url: jdbc:mysql://mysql:3306/fsd?createDatabaseIfNotExist=true
+    username: fsd
+    password: fsd
 clientId: ZmdsX21vYmlsZV9kZXZpY2U=
 clientPass: n9zY8vL8WsxKQSfK47ALuRUzDA3Y5hfR
 accessTokenValiditySeconds: 900
@@ -49,6 +59,11 @@ hazelcast:
 ---
 spring:
   profiles: development
+  jpa.hibernate.ddl-auto: none
+  datasource:
+    url: jdbc:mysql://localhost:3306/fsd?createDatabaseIfNotExist=true
+    username: fsd
+    password: fsd
 clientId: ZmdsX21vYmlsZV9kZXZpY2U=
 clientPass: n9zY8vL8WsxKQSfK47ALuRUzDA3Y5hfR
 accessTokenValiditySeconds: 900

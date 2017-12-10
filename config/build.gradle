@@ -61,6 +61,10 @@ allprojects {
         compile('org.springframework.boot:spring-boot-starter-actuator')
         compile('org.springframework.cloud:spring-cloud-starter-config')
         compile('org.jolokia:jolokia-core')
+
+        //Lombok
+        compile('org.projectlombok:lombok')
+
         testCompile('org.springframework.boot:spring-boot-starter-test')
         testCompile('junit:junit')
     }

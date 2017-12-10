@@ -1,0 +1,195 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: sujit
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: user_id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: useremail
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 2
+      author: sujit
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: sujit
+              - column:
+                  name: password
+                  value: sujit
+              - column:
+                  name: useremail
+                  value: sujit.deshpande@ness.com
+              - column:
+                  name: role
+                  value: LIBRARIAN
+              - column:
+                  name: created_at
+                  value: NOW()
+              - column:
+                  name: updated_at
+                  value: NOW()
+  - changeSet:
+      id: 3
+      author: sujit
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: prasanna
+              - column:
+                  name: password
+                  value: prasanna
+              - column:
+                  name: useremail
+                  value: Prasanna.Nagabhushana@ness.com
+              - column:
+                  name: role
+                  value: LIBRARIAN
+              - column:
+                  name: created_at
+                  value: NOW()
+              - column:
+                  name: updated_at
+                  value: NOW()
+  - changeSet:
+      id: 4
+      author: sujit
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: nikhil
+              - column:
+                  name: password
+                  value: nikhil
+              - column:
+                  name: useremail
+                  value: Nikhil.Sharma@ness.com
+              - column:
+                  name: role
+                  value: PATRON
+              - column:
+                  name: created_at
+                  value: NOW()
+              - column:
+                  name: updated_at
+                  value: NOW()
+  - changeSet:
+      id: 5
+      author: sujit
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: praveen
+              - column:
+                  name: password
+                  value: praveen
+              - column:
+                  name: useremail
+                  value: Praveen.Basireddy@ness.com
+              - column:
+                  name: role
+                  value: PATRON
+              - column:
+                  name: created_at
+                  value: NOW()
+              - column:
+                  name: updated_at
+                  value: NOW()
+  - changeSet:
+      id: 6
+      author: sujit
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: raju
+              - column:
+                  name: password
+                  value: raju
+              - column:
+                  name: useremail
+                  value: Narsimharaju.Valivarthi@ness.com
+              - column:
+                  name: role
+                  value: PATRON
+              - column:
+                  name: created_at
+                  value: NOW()
+              - column:
+                  name: updated_at
+                  value: NOW()
+  - changeSet:
+      id: 7
+      author: sujit
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: fayaz
+              - column:
+                  name: password
+                  value: fayaz
+              - column:
+                  name: useremail
+                  value: Khazifayaz.Ahamed@ness.com
+              - column:
+                  name: role
+                  value: LIBRARIAN
+              - column:
+                  name: created_at
+                  value: NOW()
+              - column:
+                  name: updated_at
+                  value: NOW()
