@@ -29,16 +29,10 @@ public class CustomTokenEnhancer implements TokenEnhancer {
         JSONArray scope = new JSONArray();
 
         final Map<String, Object> accessTokenInfo = new HashMap<>();
-        if (env.getProperty("Roles.Privilege").equals("Admin")){
-            scope.add("ADMIN");
-        }
-        if (env.getProperty("Roles.Privilege").equals("User")){
-            scope.add("USER");
-        }
-
-
+        scope.add(authService.findUserByName(authentication.getName()).getRole());
         accessTokenInfo.put("scope", scope);
-        accessTokenInfo.put("roles", env.getProperty("Roles.ID-"+roleId+".Description"));
+        accessTokenInfo.put("id", authService.findUserByName(authentication.getName()).getId());
+        //accessTokenInfo.put("roles", env.getProperty("Roles.ID-"+roleId+".Description"));
         accessTokenInfo.put("iss", "FSD Auth Service");
         accessTokenInfo.put("iat", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ")
                 .withZone(OffsetDateTime.now().getOffset())
