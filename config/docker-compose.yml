@@ -108,25 +108,14 @@ services:
     - config
     - discovery
     - edge
-  zookeeper:
-    image: wurstmeister/zookeeper
-    container_name: "zk"
-    ports:
-      - "2181:2181"
-    networks:
-    - fsd
   kafka:
-    image: wurstmeister/kafka
-    container_name: "kafka"
+    image: spotify/kafka
     ports:
       - "9092:9092"
+      - "2181:2181"
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: localhost
-      KAFKA_ZOOKEEPER_CONNECT: zk:2181
-      KAFKA_CREATE_TOPICS: "bookStoreTopic:1:1"
-      KAFKA_ENABLE_AUTO_COMMIT: "false"
-    links:
-    - zookeeper:zk
+      ADVERTISED_HOST: localhost
+      ADVERTISED_PORT: 9092
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
