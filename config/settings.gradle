@@ -3,8 +3,7 @@ rootProject.name = 'support-config'
 include 'config-server'
 include 'discovery-server'
 include 'edge-server'
-include 'hystrix-dashboard'
-include 'turbine-server'
+include 'hystrix-turbine'
 include 'auth-server'
 
 rootProject.children.each {project ->

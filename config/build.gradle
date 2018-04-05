@@ -1,12 +1,11 @@
 buildscript {
     ext {
-        springBootVersion = '1.5.9.RELEASE'
+        springBootVersion = '2.0.0.RELEASE'
         gradleDockerVersion = '1.2'
     }
     ext.baseVersion = "1.0"
     ext.snapshotVersion = true
 
-    group = "org.sonarqube"
     version = "$baseVersion" + (snapshotVersion ? "-SNAPSHOT" : "")
     repositories {
         mavenCentral()
@@ -15,16 +14,6 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath "se.transmode.gradle:gradle-docker:${gradleDockerVersion}"
     }
-    // this allows the spring dependency management plugin
-    dependencies {
-        classpath "io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE"
-    }
-}
-plugins {
-    id "java"
-    id "jacoco"
-    id "groovy"
-    id "org.sonarqube" version "2.5"
 }
 
 allprojects {
@@ -33,13 +22,21 @@ allprojects {
     apply plugin: 'idea'
     apply plugin: 'docker'
     apply plugin: 'org.springframework.boot'
-    apply plugin: "io.spring.dependency-management"
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'groovy'
 
-    // this uses the spring dependency plugin to pull a Maven BOM - containing a curated set of dependencies
-    // see https://projects.spring.io/spring-cloud/ - Release train contents: Edgware.RELEASE
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/milestone" }
+    }
+
+    ext {
+        springCloudVersion = 'Finchley.M8'
+    }
+
     dependencyManagement {
         imports {
-            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Edgware.RELEASE'
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
         }
     }
 
@@ -59,7 +56,7 @@ allprojects {
     dependencies {
         compile('org.springframework.boot:spring-boot-starter-web')
         compile('org.springframework.boot:spring-boot-starter-actuator')
-        compile('org.springframework.cloud:spring-cloud-starter-config')
+        compile("org.springframework.cloud:spring-cloud-starter-config")
         compile('org.jolokia:jolokia-core')
 
         //Lombok
@@ -99,10 +96,6 @@ allprojects {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
 group 'com.fsd.support-services.config'
 version '1.0-SNAPSHOT'
 
