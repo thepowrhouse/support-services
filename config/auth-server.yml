@@ -27,6 +27,7 @@ spring:
     password: fsd
 clientId: JRFahL93QUxPrcvO9xZx1qUG
 clientPass: $2a$10$xP//sZO0FwDbzz82yHXGJeOjJNJ4z.I4lleZrRLkY.uzTu4GwgXju
+## client pass = 2z4HH3e312tAZLhrgoP4tRqrZJ1g7813
 accessTokenValiditySeconds: 900
 refreshTokenValiditySeconds: 7200
 eureka.client.serviceUrl.defaultZone: http://localhost:8761/eureka/
