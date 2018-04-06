@@ -88,3 +88,15 @@ services:
       - REDIS_PORT=6379
     #volumes:
       #- /srv/docker/gitlab/gitlab:/home/git/data
+
+  sonarqube:
+    image: sonarqube
+    depends_on:
+      - redis
+      - postgresql
+    networks:
+      - fsd
+    ports:
+      - "9000:9000"
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/gitlab
