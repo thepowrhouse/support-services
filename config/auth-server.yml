@@ -25,8 +25,8 @@ spring:
     url: jdbc:mysql://localhost:3306/fsd?createDatabaseIfNotExist=true
     username: fsd
     password: fsd
-clientId: ZmdsX21vYmlsZV9kZXZpY2U=
-clientPass: n9zY8vL8WsxKQSfK47ALuRUzDA3Y5hfR
+clientId: JRFahL93QUxPrcvO9xZx1qUG
+clientPass: $2a$10$xP//sZO0FwDbzz82yHXGJeOjJNJ4z.I4lleZrRLkY.uzTu4GwgXju
 accessTokenValiditySeconds: 900
 refreshTokenValiditySeconds: 7200
 eureka.client.serviceUrl.defaultZone: http://localhost:8761/eureka/
@@ -45,8 +45,8 @@ spring:
     url: jdbc:mysql://mysql:3306/fsd?createDatabaseIfNotExist=true
     username: fsd
     password: fsd
-clientId: ZmdsX21vYmlsZV9kZXZpY2U=
-clientPass: n9zY8vL8WsxKQSfK47ALuRUzDA3Y5hfR
+clientId: JRFahL93QUxPrcvO9xZx1qUG
+clientPass: $2a$10$xP//sZO0FwDbzz82yHXGJeOjJNJ4z.I4lleZrRLkY.uzTu4GwgXju
 accessTokenValiditySeconds: 900
 refreshTokenValiditySeconds: 7200
 hazelcast:
@@ -64,8 +64,8 @@ spring:
     url: jdbc:mysql://localhost:3306/fsd?createDatabaseIfNotExist=true
     username: fsd
     password: fsd
-clientId: ZmdsX21vYmlsZV9kZXZpY2U=
-clientPass: n9zY8vL8WsxKQSfK47ALuRUzDA3Y5hfR
+clientId: JRFahL93QUxPrcvO9xZx1qUG
+clientPass: $2a$10$xP//sZO0FwDbzz82yHXGJeOjJNJ4z.I4lleZrRLkY.uzTu4GwgXju
 accessTokenValiditySeconds: 900
 refreshTokenValiditySeconds: 7200
 eureka.client.serviceUrl.defaultZone: http://localhost:8761/eureka/
