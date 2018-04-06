@@ -1,55 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	 <include resource="org/springframework/boot/logging/logback/defaults.xml" />
-	 <property name="CONSOLE_LOG_PATTERN"
-        value="%d{yyyy-MM-dd HH:mm:ss.SSS Z} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } -- [%thread] %logger{60} : %msg%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
-	<springProfile name="local,bamboo">​
-    <appender name="dailyRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/config-server.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <!-- daily rollover -->
-            <fileNamePattern>logs/config-server.%d{yyyy-MM-dd}_%i.gz</fileNamePattern>
-            <maxHistory>7</maxHistory>
-            <maxFileSize>10MB</maxFileSize>
-			<!--  or upto total combined log size less than 100MB -->
-			<totalSizeCap>100MB</totalSizeCap>
-        </rollingPolicy>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <jmxConfigurator/>
+    ​​
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%d{MM/dd/yyyy HH:mm:ss.SSS XXX} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } -- [%thread] %logger{60} : %msg%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
 
-        <encoder>
-            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
-        </encoder>
-    </appender>
-	</springProfile>
-	
-	<springProfile name="development,qa1,qa2,qa3,pp,prod">​
-    <appender name="dailyRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/apps/microservices/logs/support/config-server.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <!-- daily rollover -->
-            <fileNamePattern>/apps/microservices/logs/support/config-server.%d{yyyy-MM-dd}_%i.gz</fileNamePattern>
-            <maxHistory>7</maxHistory>
-            <maxFileSize>10MB</maxFileSize>
-			<!--  or upto total combined log size less than 1 GB -->
-			<totalSizeCap>1GB</totalSizeCap>
-        </rollingPolicy>
-
-        <encoder>
-            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
-        </encoder>
-    </appender>
-	</springProfile>
-	
-    <appender name="consoleRolling" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
-            <charset>utf8</charset>
-        </encoder>
-    </appender>
-
-
-    <root level="INFO">
-        <appender-ref ref="dailyRollingFile"/>
-        <appender-ref ref="consoleRolling"/>
-    </root>
+    <!-- Appender to log to file -->
+    <springProfile name="local">​
+        <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>logs/config-server.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- daily rollover -->
+                <fileNamePattern>logs/config-server.%d{yyyy-MM-dd}_%i.gz</fileNamePattern>
+                <timeBasedFileNamingAndTriggeringPolicy
+                        class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                    <!-- or whenever the file size reaches 10MB -->
+                    <maxFileSize>10MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+                <!-- keep 7 days' worth of history -->
+                <maxHistory>7</maxHistory>
+            </rollingPolicy>
+            <encoder>
+                <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+                <charset>utf8</charset>
+            </encoder>
+        </appender>
+        <root >
+            <appender-ref ref="file" level="INFO" />
+        </root>
+        ​	</springProfile>
+    <springProfile name="development,qa1,qa4,pp,prod">​
+        <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>/apps/microservices/logs/support/config-server.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- daily rollover -->
+                <fileNamePattern>/apps/microservices/logs/support/config-server.%d{yyyy-MM-dd}_%i.gz</fileNamePattern>
+                <timeBasedFileNamingAndTriggeringPolicy
+                        class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                    <!-- or whenever the file size reaches 10MB -->
+                    <maxFileSize>10MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+                <!-- keep 7 days' worth of history -->
+                <maxHistory>7</maxHistory>
+            </rollingPolicy>
+            <encoder>
+                <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+                <charset>utf8</charset>
+            </encoder>
+        </appender>
+        <root >
+            <appender-ref ref="file" level="INFO" />
+        </root>
+        ​	</springProfile>
 
 </configuration>
