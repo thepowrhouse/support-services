@@ -23,3 +23,7 @@ This Project also contains the following CI/CD Docker Containers
 * Sonar (TBD)
 
 To import the project, open the config folder from Eclipse/ IntelliJ
+
+To compile the code and run, execute ./build-all.sh from the config folder
+
+To run the docker containers run docker-compose scale <service-name>=1
