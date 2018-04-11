@@ -143,13 +143,10 @@ services:
       - fsd
 
   logstash:
-    image: docker.elastic.co/logstash/logstash:6.2.3
-    container_name: logstash
-    command: logstash -f /etc/logstash/conf.d/logstash.conf
-    volumes:
-      - ./logstash/config:/etc/logstash/conf.d
-    ports:
-      - "5000:5000"
+    image: ludekvesely/logstash-json
+    environment:
+      - DROP_NON_JSON=false
+      - STDOUT=true
     links:
       - elasticsearch
     networks:
@@ -167,4 +164,12 @@ services:
     networks:
       - fsd
 
-
+  logspout:
+    image: gliderlabs/logspout:v3.2.4
+    command: 'syslog://logstash:5000'
+    links:
+      - logstash
+    volumes:
+      - '/var/run/docker.sock:/tmp/docker.sock'
+    networks:
+      - fsd
