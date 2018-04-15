@@ -1,4 +1,4 @@
-String basePath = 'example1'
+String basePath = 'Auth Service'
 String repo = 'thepowrhouse/support-services'
 
 folder(basePath) {
