@@ -43,7 +43,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <javaposse.jobdsl.plugin.ExecuteDslScripts plugin="job-dsl@1.38">
-      <targets>config/jenkins/seedjobs/gradleRepoTest.groovy</targets>
+      <targets>config/jenkins/seedjobs/supportServicesBuildJobs.groovy</targets>
       <usingScriptText>false</usingScriptText>
       <ignoreExisting>false</ignoreExisting>
       <removedJobAction>DELETE</removedJobAction>
