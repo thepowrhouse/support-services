@@ -1,11 +1,11 @@
 String basePath = 'example1'
-String repo = 'sheehan/gradle-example'
+String repo = 'thepowrhouse/support-services'
 
 folder(basePath) {
-    description 'This example shows basic folder/job creation.'
+    description 'Auth Service'
 }
 
-job("$basePath/gradle-example-build") {
+job("$basePath/auth-service-build") {
     scm {
         github repo
     }
@@ -17,7 +17,7 @@ job("$basePath/gradle-example-build") {
     }
 }
 
-job("$basePath/gradle-example-deploy") {
+job("$basePath/auth-service-deploy") {
     parameters {
         stringParam 'host'
     }
