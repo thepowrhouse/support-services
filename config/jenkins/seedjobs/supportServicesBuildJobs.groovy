@@ -14,7 +14,7 @@ job("$basePath/config-service-build") {
         scm 'H/5 * * * *'
     }
     steps {
-        shell './gradlew -b config/build.gradle :config-server:build --stacktrace'
+        shell 'cd config && ./gradlew :config-server:build --stacktrace'
     }
 }
 
@@ -26,7 +26,7 @@ job("$basePath/discovery-service-build") {
         scm 'H/5 * * * *'
     }
     steps {
-        shell './gradlew -b config/build.gradle :discovery-server:build --stacktrace'
+        shell 'cd config && ./gradlew :discovery-server:build --stacktrace'
     }
 }
 
@@ -38,7 +38,7 @@ job("$basePath/edge-service-build") {
         scm 'H/5 * * * *'
     }
     steps {
-        shell './gradlew -b config/build.gradle :edge-server:build --stacktrace'
+        shell 'cd config && ./gradlew :edge-server:build --stacktrace'
     }
 }
 
@@ -50,7 +50,7 @@ job("$basePath/hystrix-turbine-service-build") {
         scm 'H/5 * * * *'
     }
     steps {
-        shell './gradlew -b config/build.gradle :hystrix-turbine:build --stacktrace'
+        shell 'cd config && ./gradlew :hystrix-turbine:build --stacktrace'
     }
 }
 
@@ -62,7 +62,7 @@ job("$basePath/auth-service-build") {
         scm 'H/5 * * * *'
     }
     steps {
-        shell './gradlew -b config/build.gradle :auth-server:build --stacktrace'
+        shell 'cd config && ./gradlew :auth-server:build --stacktrace'
     }
 }
 
