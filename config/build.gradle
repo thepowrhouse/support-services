@@ -16,6 +16,21 @@ buildscript {
     }
 }
 
+plugins {
+    id "org.sonarqube" version "2.6.2"
+}
+
+sonarqube{
+    properties {
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.projectName", "support-services"
+        property "sonar.projectKey", "org.sonarqube:support-services"
+        property "sonar.groovy.binaries", "${project.buildDir.name}${File.separator}classes"
+        property "sonar.groovy.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
+        property 'sonar.coverage.exclusions', "**/com/fsd/**Application*, **/com/fsd/**/configurations/*, **/com/fsd/**/exception/*, **/com/fsd/**/models/*"
+    }
+}
+
 allprojects {
     apply plugin: 'java'
     apply plugin: 'eclipse'
