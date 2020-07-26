@@ -30,7 +30,7 @@ public class EdgeServerApplication {
 		int buildNo = 15;
 		LOG.info("Edge-server, starting build no. {}...", buildNo);
 
-		new SpringApplicationBuilder(EdgeServerApplication.class).web(true).run(args);
+		new SpringApplicationBuilder(EdgeServerApplication.class).run(args);
 
 		LOG.info("Edge-server, build no. {} started", buildNo);
 	}
