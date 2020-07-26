@@ -78,8 +78,9 @@ allprojects {
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
 
-        testCompile('org.springframework.boot:spring-boot-starter-test')
-        testCompile('junit:junit')
+        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
     }
 
     // Default test task to include only unit tests
@@ -117,7 +118,4 @@ bootJar { enabled = false}
 group 'com.fsd.support-services.config'
 version '1.0-SNAPSHOT'
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-}
 
