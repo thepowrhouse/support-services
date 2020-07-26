@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.3.1.RELEASE'
+        springBootVersion = '2.2.1.RELEASE'
         gradleDockerVersion = '1.2'
     }
     ext.baseVersion = "1.0"
@@ -108,8 +108,10 @@ allprojects {
     buildDocker.dependsOn(build)
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+bootJar { enabled = false}
 
 group 'com.fsd.support-services.config'
 version '1.0-SNAPSHOT'
