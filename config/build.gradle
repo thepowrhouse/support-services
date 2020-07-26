@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.0.RELEASE'
+        springBootVersion = '2.3.1.RELEASE'
         gradleDockerVersion = '1.2'
     }
     ext.baseVersion = "1.0"
@@ -17,7 +17,7 @@ buildscript {
 }
 
 plugins {
-    id "org.sonarqube" version "2.6.2"
+    id "org.sonarqube" version "3.0"
 }
 
 sonarqube{
@@ -46,7 +46,7 @@ allprojects {
     }
 
     ext {
-        springCloudVersion = 'Finchley.M8'
+        springCloudVersion = 'Hoxton.SR6'
     }
 
     dependencyManagement {
