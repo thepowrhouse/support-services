@@ -1,36 +1,40 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: config
-  labels:
-    app: config
-    tier: support-services
-spec:
-  ports:
-  - port: 8888
-    targetPort: 8888
-  selector:
-    app: config
-    tier: support-services
----
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: config
+  namespace: default
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: config-server
   template:
     metadata:
       labels:
-        app: config
+        app: config-server
         tier: support-services
     spec:
       containers:
-      - name: config
-        image: fsdapps/config-server:0.0.1-SNAPSHOT
-        ports:
-        - containerPort: 8888
-        imagePullPolicy: IfNotPresent
-        env:
-          - name: SPRING_PROFILES_ACTIVE
-            value: docker
+        - name: config-server
+          image: config-server:0.0.1-SNAPSHOT
+          ports:
+            - containerPort: 8888
+          imagePullPolicy: Never
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-server
+  labels:
+    app: config-server
+    tier: support-services
+spec:
+  ports:
+    - port: 8888
+      targetPort: 8888
+  selector:
+    app: config-server
+    tier: support-services

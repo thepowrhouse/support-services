@@ -1,36 +1,40 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: discovery
-  labels:
-    app: discovery
-    tier: support-services
-spec:
-  ports:
-  - port: 8761
-    targetPort: 8761
-  selector:
-    app: discovery
-    tier: support-services
----
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: discovery
+  name: config
+  namespace: default
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: discovery-server
   template:
     metadata:
       labels:
-        app: discovery
+        app: discovery-server
         tier: support-services
     spec:
       containers:
-      - name: config
-        image: fsdapps/discovery-server:0.0.1-SNAPSHOT
-        ports:
-        - containerPort: 8761
-        imagePullPolicy: IfNotPresent
-        env:
-          - name: SPRING_PROFILES_ACTIVE
-            value: docker
+        - name: discovery-server
+          image: discovery-server:0.0.1-SNAPSHOT
+          ports:
+            - containerPort: 8761
+          imagePullPolicy: Never
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: discovery-server
+  labels:
+    app: discovery-server
+    tier: support-services
+spec:
+  ports:
+    - port: 8761
+      targetPort: 8761
+  selector:
+    app: discovery-server
+    tier: support-services

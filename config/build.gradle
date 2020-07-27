@@ -93,7 +93,7 @@ allprojects {
     task buildDocker(type: Docker) {
         baseImage = 'openjdk:8-jdk-alpine'
         push = project.hasProperty('push')
-        tag = "fsdapps/" + jar.baseName
+        tag = jar.baseName
         addFile {
             from jar
             rename {'app.jar'}
